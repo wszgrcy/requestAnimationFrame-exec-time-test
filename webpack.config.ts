@@ -2,6 +2,7 @@ import * as webpack from "webpack";
 import * as path from "path";
 import * as ts from "typescript";
 import { createTransformer } from "static-injector/transform";
+import HtmlWebpackPlugin from "html-webpack-plugin";
 const config: webpack.Configuration = {
   mode: "production",
   entry: "./src/index.ts",
@@ -24,6 +25,14 @@ const config: webpack.Configuration = {
         ],
       },
     ],
+  },
+  plugins: [
+    new HtmlWebpackPlugin({
+      template: "./src/index.html",
+    }),
+  ],
+  resolve: {
+    extensions: [".js", ".ts"],
   },
 };
 
