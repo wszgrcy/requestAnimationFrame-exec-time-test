@@ -43,8 +43,13 @@ export class HtmlTemplate {
     return this.template;
   }
   generateTemplateList(listLength: number) {
-    return new Array(listLength)
-      .fill(this.template)
-      .map((item) => () => this.config.templateContainer.insertAdjacentHTML("beforeend", item));
+    return new Array(listLength).fill(this.template).map((item) => () => {
+      let fragment = document.createDocumentFragment();
+      let el = document.createElement("div");
+      el.insertAdjacentHTML("beforeend", item);
+      fragment.appendChild(el);
+      this.config.templateContainer.appendChild(fragment);
+      // this.config.templateContainer.insertAdjacentHTML("beforeend", item);
+    });
   }
 }
